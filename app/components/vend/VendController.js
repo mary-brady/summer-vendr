@@ -1,4 +1,5 @@
 import VendService from "./VendService.js";
+import VendingMachine from "../../models/VendingMachine.js";
 
 //PRIVATE PARTS
 
@@ -8,7 +9,6 @@ const vendService = new VendService()
 function drawTotal(total) {
   document.getElementById('total').innerText = total
 }
-
 function drawItems() {
   let items = vendService.getItems()
   //draw the items to the page
@@ -16,18 +16,25 @@ function drawItems() {
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
     template += `
-            <div class="food-item" onclick>
-              <img src="${item.img}" alt = "">
-              <h3> ${item.price}</h3> 
-            </div>
-            `
+    <div class="food-item"> <button onclick="drawVend()">
+    <img src="${item.img}" alt = ""></button>
+    <h3>$${item.price}</h3> 
+    </div>
+    `
   }
   document.getElementById('food').innerHTML = template
 }
 
-function drawVend() {
-
+function drawVend(foodId) {
+  let vendItem = vendService.getItems()
+  for (let i = 0; i < vendItem.length; i++) {
+    const element = vendItem[i];
+    if (foodId = element.id)
+      return vendService.vend(foodId)
+  }
 }
+
+
 
 //PUBLIC PARTS
 //Controllers are used for getting user input
