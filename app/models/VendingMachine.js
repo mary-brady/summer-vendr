@@ -40,14 +40,18 @@ class VendingMachine {
       id.quantity--
       this.transactionTotal -= id.price
       this.machineTotal += id.price
+      return {
+        img: id.img,
+        total: this.transactionTotal.toFixed(2)
+      }
     }
-    console.log('vend model: ', id)
   }
   giveChange() {
-    if (this.transactionTotal > 0)
-      this.transactionTotal = 0
+    let change = this.transactionTotal
+    this.transactionTotal = 0
+    return change
   }
-  //transactionTotal = 0
+  //maybe see if you can connect all these
 
   getItems() {
     return this.foodItems
